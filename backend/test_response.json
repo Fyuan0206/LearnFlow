@@ -1,0 +1,363 @@
+{
+  "topic": "MCP",
+  "brief": {
+    "oneLineSummary": "MCP 是让 AI 应用连接外部工具和数据源的开放协议。",
+    "whyLearn": "它是 Agent 工具生态的重要基础，适合想做 AI 应用和自动化工具的开发者学习。",
+    "keyTakeaways": [
+      "MCP 的核心角色包括 Host、Client、Server 和 Tool",
+      "MCP Server 负责把外部能力暴露给 AI 应用",
+      "学习 MCP 最好的方式是搭建一个最小工具调用 Demo"
+    ],
+    "estimatedTime": "6 小时",
+    "nextAction": "先理解协议角色，再用 FastAPI 实现一个简单 MCP Server"
+  },
+  "sources": [
+    {
+      "id": "research_76984ef1_src_source_001",
+      "title": "MCP 官方文档",
+      "source": "Official Docs",
+      "url": "https://modelcontextprotocol.io",
+      "type": "docs",
+      "qualityScore": 95,
+      "reason": "官方定义最准确，适合作为起点",
+      "readingTime": 20
+    },
+    {
+      "id": "research_76984ef1_src_source_002",
+      "title": "MCP Python SDK",
+      "source": "GitHub",
+      "url": "https://github.com/modelcontextprotocol/python-sdk",
+      "type": "repo",
+      "qualityScore": 92,
+      "reason": "官方 SDK，含示例代码",
+      "readingTime": 15
+    },
+    {
+      "id": "research_76984ef1_src_source_003",
+      "title": "MCP 快速入门指南",
+      "source": "Anthropic Blog",
+      "url": "https://www.anthropic.com/news/model-context-protocol",
+      "type": "article",
+      "qualityScore": 90,
+      "reason": "介绍协议背景与设计动机",
+      "readingTime": 12
+    },
+    {
+      "id": "research_76984ef1_src_source_004",
+      "title": "MCP Server 开发实战",
+      "source": "YouTube",
+      "url": "https://www.youtube.com/results?search_query=mcp+server+tutorial",
+      "type": "video",
+      "qualityScore": 78,
+      "reason": "视频演示更直观",
+      "readingTime": 25
+    },
+    {
+      "id": "research_76984ef1_src_source_005",
+      "title": "Awesome MCP Servers",
+      "source": "GitHub",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "type": "repo",
+      "qualityScore": 85,
+      "reason": "参考现有 Server 实现",
+      "readingTime": 10
+    }
+  ],
+  "cards": [
+    {
+      "id": "research_76984ef1_card_card_001",
+      "title": "MCP 协议是什么",
+      "summary": "MCP 是一种让 AI 应用以标准方式连接工具、数据源和外部服务的协议。",
+      "bullets": [
+        "解决 AI 应用与工具集成方式碎片化的问题",
+        "通过 Server 暴露工具能力",
+        "通过 Client 与 Host 完成调用链路"
+      ],
+      "tags": [
+        "MCP",
+        "AI Agent",
+        "Tool Calling"
+      ],
+      "difficulty": "入门",
+      "relatedConcepts": [
+        "Host",
+        "Client",
+        "Server",
+        "Tool"
+      ],
+      "sourceIds": [
+        "research_76984ef1_src_source_001"
+      ],
+      "favorite": false
+    },
+    {
+      "id": "research_76984ef1_card_card_002",
+      "title": "Host 的角色",
+      "summary": "Host 是运行 AI 应用的环境，负责协调 Client 与 Server 之间的通信。",
+      "bullets": [
+        "管理多个 MCP Client 的生命周期",
+        "提供用户交互界面",
+        "决定哪些工具可以被调用"
+      ],
+      "tags": [
+        "MCP",
+        "Host"
+      ],
+      "difficulty": "入门",
+      "relatedConcepts": [
+        "Client",
+        "Server",
+        "权限控制"
+      ],
+      "sourceIds": [
+        "research_76984ef1_src_source_001",
+        "research_76984ef1_src_source_003"
+      ],
+      "favorite": false
+    },
+    {
+      "id": "research_76984ef1_card_card_003",
+      "title": "Client 与 Server 的交互",
+      "summary": "Client 代表 Host 与 Server 建立连接，Server 则暴露工具和资源。",
+      "bullets": [
+        "Client 发送工具调用请求",
+        "Server 执行实际逻辑并返回结果",
+        "双方通过 stdio 或 SSE 通信"
+      ],
+      "tags": [
+        "MCP",
+        "Client",
+        "Server"
+      ],
+      "difficulty": "进阶",
+      "relatedConcepts": [
+        "stdio",
+        "SSE",
+        "JSON-RPC"
+      ],
+      "sourceIds": [
+        "research_76984ef1_src_source_001",
+        "research_76984ef1_src_source_002"
+      ],
+      "favorite": false
+    },
+    {
+      "id": "research_76984ef1_card_card_004",
+      "title": "Tool 的定义与调用",
+      "summary": "Tool 是 Server 暴露给 AI 的可调用能力，通常以函数形式描述。",
+      "bullets": [
+        "Tool 需要名称、描述和参数模式",
+        "AI 根据用户输入决定是否调用 Tool",
+        "调用结果会被送回对话上下文"
+      ],
+      "tags": [
+        "MCP",
+        "Tool Calling"
+      ],
+      "difficulty": "进阶",
+      "relatedConcepts": [
+        "Function Calling",
+        "Schema"
+      ],
+      "sourceIds": [
+        "research_76984ef1_src_source_002"
+      ],
+      "favorite": false
+    },
+    {
+      "id": "research_76984ef1_card_card_005",
+      "title": "搭建最小 MCP Server",
+      "summary": "用 Python FastAPI 或官方 SDK 可以快速实现一个返回当前时间的 Server。",
+      "bullets": [
+        "安装 mcp Python SDK",
+        "定义一个 tool 函数",
+        "运行 Server 并用 Client 测试"
+      ],
+      "tags": [
+        "MCP",
+        "实践"
+      ],
+      "difficulty": "入门",
+      "relatedConcepts": [
+        "FastAPI",
+        "SDK",
+        "Demo"
+      ],
+      "sourceIds": [
+        "research_76984ef1_src_source_002",
+        "research_76984ef1_src_source_005"
+      ],
+      "favorite": false
+    }
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "id": "mcp",
+        "label": "MCP",
+        "type": "topic"
+      },
+      {
+        "id": "host",
+        "label": "Host",
+        "type": "concept"
+      },
+      {
+        "id": "client",
+        "label": "Client",
+        "type": "concept"
+      },
+      {
+        "id": "server",
+        "label": "Server",
+        "type": "concept"
+      },
+      {
+        "id": "tool",
+        "label": "Tool",
+        "type": "concept"
+      },
+      {
+        "id": "ai_app",
+        "label": "AI 应用",
+        "type": "practice"
+      }
+    ],
+    "edges": [
+      {
+        "source": "mcp",
+        "target": "host",
+        "label": "包含"
+      },
+      {
+        "source": "mcp",
+        "target": "client",
+        "label": "包含"
+      },
+      {
+        "source": "mcp",
+        "target": "server",
+        "label": "包含"
+      },
+      {
+        "source": "server",
+        "target": "tool",
+        "label": "暴露"
+      },
+      {
+        "source": "host",
+        "target": "ai_app",
+        "label": "运行"
+      },
+      {
+        "source": "client",
+        "target": "server",
+        "label": "连接"
+      }
+    ]
+  },
+  "learningPath": [
+    {
+      "level": 1,
+      "title": "理解 Tool Calling",
+      "goal": "理解大模型如何调用外部工具",
+      "estimatedHours": 1,
+      "resources": [
+        "OpenAI Tool Calling 文档"
+      ],
+      "tasks": [
+        "写出一个工具调用流程图"
+      ]
+    },
+    {
+      "level": 2,
+      "title": "理解 MCP 核心角色",
+      "goal": "掌握 Host、Client、Server、Tool 的关系",
+      "estimatedHours": 1,
+      "resources": [
+        "MCP 官方介绍"
+      ],
+      "tasks": [
+        "画出 MCP 调用链路"
+      ]
+    },
+    {
+      "level": 3,
+      "title": "阅读官方文档与示例",
+      "goal": "熟悉协议消息格式与生命周期",
+      "estimatedHours": 2,
+      "resources": [
+        "MCP 官方文档",
+        "Python SDK 示例"
+      ],
+      "tasks": [
+        "运行官方 hello-world 示例"
+      ]
+    },
+    {
+      "level": 4,
+      "title": "实现第一个 MCP Server",
+      "goal": "能独立开发一个简单 Server",
+      "estimatedHours": 2,
+      "resources": [
+        "Python SDK",
+        "Awesome MCP Servers"
+      ],
+      "tasks": [
+        "实现返回当前时间的 Tool",
+        "用 Client 完成调用"
+      ]
+    },
+    {
+      "level": 5,
+      "title": "接入 AI 应用完成闭环",
+      "goal": "让大模型通过 MCP 调用你的工具",
+      "estimatedHours": 2,
+      "resources": [
+        "Claude / OpenAI API"
+      ],
+      "tasks": [
+        "在对话中触发工具调用",
+        "处理调用结果"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "research_76984ef1_task_task_001",
+      "title": "搭建 MCP 最小 Demo",
+      "description": "实现一个可以返回当前时间的 MCP Tool",
+      "estimatedMinutes": 90,
+      "priority": "high",
+      "source": "research_76984ef1_card_card_005",
+      "status": "todo"
+    },
+    {
+      "id": "research_76984ef1_task_task_002",
+      "title": "画出 MCP 角色关系图",
+      "description": "在纸上或 Excalidraw 中画出 Host、Client、Server、Tool 的关系",
+      "estimatedMinutes": 30,
+      "priority": "medium",
+      "source": "research_76984ef1_card_card_002",
+      "status": "todo"
+    },
+    {
+      "id": "research_76984ef1_task_task_003",
+      "title": "阅读官方 Quickstart",
+      "description": "完成官方文档的快速入门章节",
+      "estimatedMinutes": 45,
+      "priority": "medium",
+      "source": "research_76984ef1_card_card_001",
+      "status": "todo"
+    },
+    {
+      "id": "research_76984ef1_task_task_004",
+      "title": "测试一个现有 MCP Server",
+      "description": "从 Awesome MCP Servers 中挑选一个运行并测试",
+      "estimatedMinutes": 60,
+      "priority": "low",
+      "source": "research_76984ef1_card_card_004",
+      "status": "todo"
+    }
+  ]
+}
