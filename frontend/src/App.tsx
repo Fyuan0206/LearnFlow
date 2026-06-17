@@ -35,9 +35,9 @@ export function App() {
   const [activeTab, setActiveTab] = useState<InsightTab>('融合');
   const [selectedCard, setSelectedCard] = useState<KnowledgeCard | null>(null);
   const [activeNodeId, setActiveNodeId] = useState<string | null>('ai-agent');
-  const [tick, setTick] = useState(0);
   const [leftCollapsed, setLeftCollapsed] = useState(false);
   const [rightCollapsed, setRightCollapsed] = useState(false);
+  const [tick, setTick] = useState(0);
 
   const workflowSteps = useMemo(() => getWorkflowSteps(), []);
 
@@ -47,7 +47,9 @@ export function App() {
 
   useEffect(() => {
     const timer = window.setInterval(() => setTick((value) => value + 1), 650);
-    return () => window.clearInterval(timer);
+    return () => {
+      window.clearInterval(timer);
+    };
   }, []);
 
   useEffect(() => {

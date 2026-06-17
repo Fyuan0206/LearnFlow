@@ -58,12 +58,31 @@ export function KnowledgeGraph({
     <section className="map-panel panel">
       <div className="map-header">
         <div>
-          <span className="eyebrow">成长图谱</span>
+          <span className="eyebrow">Knowledge Cosmos</span>
           <h1>{topic} 动态知识星图</h1>
+        </div>
+        <div className="map-metric-grid" aria-label="知识图谱指标">
+          <div>
+            <span>{graph.nodes.length}</span>
+            <p>Nodes</p>
+          </div>
+          <div>
+            <span>{graph.edges.length}</span>
+            <p>Links</p>
+          </div>
+          <div>
+            <span>{workflowSteps.length}</span>
+            <p>Agents</p>
+          </div>
         </div>
       </div>
 
       <div className={`graph-stage ${activeNodeId ? 'is-active' : ''}`} aria-label="动态分层知识图谱">
+        <div className="stage-reticle" aria-hidden="true" />
+        <div className="stage-status" aria-hidden="true">
+          <span>Graph Sync</span>
+          <b>{activeNodeId ? 'Focused' : 'Scanning'}</b>
+        </div>
         <div className="layer-ring layer-concept">概念层</div>
         <div className="layer-ring layer-tool">工具层</div>
         <div className="layer-ring layer-project">项目层</div>

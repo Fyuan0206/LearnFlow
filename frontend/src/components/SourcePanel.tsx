@@ -65,9 +65,10 @@ export function SourcePanel({ sources, collapsed, onToggle }: SourcePanelProps) 
         </div>
       </div>
       <div className="source-list">
-        {sources.map((source) => (
+        {sources.map((source, index) => (
           <article className="source-card" key={source.id}>
             <div className="source-topline">
+              <span className="source-index">{String(index + 1).padStart(2, '0')}</span>
               <span className={`source-badge type-${source.type.toLowerCase()}`}>{sourceIcon[source.type]}</span>
               <span>{sourceLabel[source.type]}</span>
               <strong>{source.score}</strong>

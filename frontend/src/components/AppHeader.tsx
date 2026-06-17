@@ -1,4 +1,4 @@
-import { ArrowRight, CircleDot, Home, LoaderCircle, Search, Sparkles } from 'lucide-react';
+import { ArrowRight, CircleDot, Home, LoaderCircle, RadioTower, Search, Sparkles } from 'lucide-react';
 
 type AppHeaderProps = {
   topic: string;
@@ -29,6 +29,7 @@ export function AppHeader({
         </div>
       </button>
       <div className="searchbar">
+        <span className="command-label">COMMAND</span>
         <Search size={18} />
         <input
           value={topic}
@@ -61,8 +62,9 @@ export function AppHeader({
           项目介绍
         </button>
         <div className={`status-pill ${backendOnline ? 'is-online' : 'is-offline'}`}>
-          <CircleDot size={14} />
+          {backendOnline ? <RadioTower size={14} /> : <CircleDot size={14} />}
           {backendOnline ? 'LLM 后端已连接' : '后端未连接'}
+          <i aria-hidden="true" />
         </div>
       </div>
     </header>

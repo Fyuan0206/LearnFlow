@@ -71,7 +71,7 @@ export function InsightPanel({
         </button>
       </div>
       <div className="tabs" role="tablist" aria-label="AI 生成结果">
-        {tabs.map((tab) => (
+        {tabs.map((tab, index) => (
           <button
             aria-selected={activeTab === tab}
             className={activeTab === tab ? 'active' : ''}
@@ -80,6 +80,7 @@ export function InsightPanel({
             role="tab"
             type="button"
           >
+            <span>{String(index + 1).padStart(2, '0')}</span>
             {tab}
           </button>
         ))}
@@ -105,6 +106,7 @@ export function InsightPanel({
                 onClick={() => onCardSelect(card)}
                 type="button"
               >
+                <span className="card-kicker">Knowledge Card</span>
                 <h3>{card.title}</h3>
                 <p>{card.oneLiner}</p>
                 <div className="chip-row">
@@ -188,6 +190,7 @@ export function InsightPanel({
                     {task.mode} · {task.minutes} 分钟
                   </p>
                 </div>
+                <time>{task.minutes}m</time>
               </article>
             ))}
           </div>
@@ -226,7 +229,10 @@ function PanelTitle({ icon, title, subtitle }: { icon: ReactNode; title: string;
 function FusionBlock({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="fusion-block">
-      <h3>{title}</h3>
+      <div className="fusion-title-row">
+        <h3>{title}</h3>
+        <span>{items.length} signals</span>
+      </div>
       {items.map((item) => (
         <p key={item}>{item}</p>
       ))}
